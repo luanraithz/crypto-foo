@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@babel/node": "^7.10.5",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "babel-cli": "^6.26.0",
     "babel-plugin-syntax-async-functions": "^6.1.4",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
