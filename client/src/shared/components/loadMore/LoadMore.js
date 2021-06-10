@@ -9,9 +9,9 @@ const StyledLoadMore = styled.div`
   line-height: 32px;
 `
 
-const LoadMore = ({ onClick }) => 
+const LoadMore = ({ onClick, loading }) => 
   <StyledLoadMore>
-    <Button onClick={onClick}>Load more</Button>
+    <Button loading={loading} onClick={onClick}>Load more</Button>
   </StyledLoadMore>
 
 export { LoadMore }

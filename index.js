@@ -1,9 +1,7 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import path from 'path';
 import dotEnv from "dotenv";
 import { registerRoutes } from "./server/index";
-import { apiTokenValidator } from './server/middleware/apiTokenValidator/apiTokenValidor';
 
 
 dotEnv.config();
@@ -13,9 +11,10 @@ const app = express();
 registerRoutes(app);
 
 const port = process.env.PORT || process.env.port || 5000;
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended:true }));
-app.use(apiTokenValidator);
+if (!process.env.MIN_API_TOKEN) {
+  console.log("MIN API TOKEN not found")
+  process.exit(1)
+} 
 
 if (process.env.NODE_ENV == 'production') {
   app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
@@ -26,4 +25,4 @@ if (process.env.NODE_ENV == 'production') {
 
 }  
 
-app.listen(port, () => console.log('Server started'));
+app.listen(port, () => console.log(`Server started on port ${port}`));

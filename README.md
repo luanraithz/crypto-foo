@@ -4,14 +4,12 @@
 
 ### For this project I've used some public apis, like: 
   * [Min-Api CryptoCompare](https://min-api.cryptocompare.com/)
-  * [Nomics](https://p.nomics.com/cryptocurrency-bitcoin-api)
 
 ## Running the project
 
 ### Create a .env file inside crypto with the following info:
 ```
 MIN_API_TOKEN=YourMinApiToken
-NOMICS_TOKEN=YourNomicsToken
 ```
 ### Starting the Nodejs(Backend)
 ```bash

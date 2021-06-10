@@ -37,19 +37,6 @@ export const getAllWallets = (coinsIncludes = "", anonymity = "") => {
     .then(({data}) => data.wallets);
 }
 
-/**
- * 
- * @param {Date} start 
- * @param {string} currency 
- * @param {Date} end 
- * @param {Enumerator} interval - example: '1d' for 1 Day.
- */
-export const getPricesForCharts = (start = new Date(), currency, end, interval = '1d') => {
-  const url = `/currenciesPricesInInterval?start=${start.toISOString()}${end ? `&end=${end.toISOString()}`: ''}&currency=${currency}&interval=${interval}`;
-  return axios.get(url)
-    .then(({ data }) => data);
-}
-
 export const getAllCoins = () => {
   return axios.get('/allCoins')
     .then(({data}) => data.coins);

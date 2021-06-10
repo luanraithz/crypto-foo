@@ -45,7 +45,7 @@ export class WalletsFilters extends PureComponent {
         <h3>Filters</h3>
         <FiltersWrapper>
           <Filter>
-            <label>Coin</label>
+            <label>Currency</label>
             <Input size="large" name="coin" value={this.props.coin}
               onChange={this.props.handleChange} placeholder="Ex: BTC"
               onPressEnter={this.props.onFilter} />

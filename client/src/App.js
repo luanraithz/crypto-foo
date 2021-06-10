@@ -50,8 +50,8 @@ class App extends Component {
             <Header onChangeRoute={(route) => this.routeChanged(route)} current={this.state.activeRoute}/>
             <Route path="/" exact component={ LandingPage }/>
             <Route path="/prices" exact component={ Prices }/>
-            <Route path="/about" exact component={ About }/>
             <Route path="/wallets" exact component={ Wallets }/>
+            <Route path="/about" exact component={ About }/>
           </StyledRouteContent>
         </BrowserRouter>
       </div>

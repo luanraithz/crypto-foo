@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { GENERAL_WALLETS, MIN_API_URL, CRYPTOCOMPARE_WEBSITE } from '../../config';
+import { get } from '../get';
 
 const walletsFilters = {
   coinsIncludes: coin => ({ coins }) => coins.map(supportedCoin => supportedCoin.toLowerCase()).includes(coin.toLowerCase()),
@@ -16,9 +16,10 @@ const walletsFilters = {
 const allWallets = async (req, res) => {
   const { coinsIncludes, anonymity } = req.query;
 
-  const { data: { Data: walletsWithKeyValue }} = await axios.get(`${MIN_API_URL}${GENERAL_WALLETS}?api_key=${process.env.MIN_API_TOKEN}`)
+  const { Data: walletsWithKeyValue } = await get(GENERAL_WALLETS)
   
   /**
+   * 
    * The Goal here was not performance, this could be reduced to just one loop.
    */
   const securityFilter = anonymity ? walletsFilters.anonymityIs(anonymity) : () => true;

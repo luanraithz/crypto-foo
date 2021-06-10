@@ -27,7 +27,7 @@ const CryptoInfo = ({ totalCoinsMined, overviewUrl }) =>
       <Button type="primary" onClick={() => window.open(overviewUrl)}>Overview</Button>
     </StyledInfo>
     <StyledInfo>
-      <label>Total coins mined</label>
+      <label>Total mined</label>
       <span>{totalCoinsMined}</span>
     </StyledInfo>
   </StyledInfoWrapper>

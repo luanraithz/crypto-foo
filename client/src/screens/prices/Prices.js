@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {
   getTopListBy24Hours,
   getCryptoInfoAndExchanges,
-  getPricesForCharts
 } from '../../services/crypto/crypto-service';
 import { List, Avatar } from 'antd';
 import styled from 'styled-components';
@@ -73,7 +72,8 @@ export class Prices extends Component {
 
   onLoadMore() {
     this.setState({ 
-      searchInfo: { ...this.state.searchInfo, page: this.state.searchInfo.page + 1 }
+      searchInfo: { ...this.state.searchInfo, page: this.state.searchInfo.page + 1 },
+      loading: true
     }, this.search);
   }
   
@@ -84,21 +84,6 @@ export class Prices extends Component {
     }, this.loadExchanges);
   }
 
-  loadPriceHistory() {
-    this.setState({ loadingPriceHistory: true });
-    const date = new Date();
-
-    getPricesForCharts(new Date(date.setDate(date.getDate() - 6)), this.state.selectedCoinInfo.name).then(({prices}) => {
-      this.setState({
-        priceHistory: prices.map(({ average, timestamp }) => {
-          const date = new Date(timestamp);
-          return { y: average, x: `${date.getDate()}/${date.getMonth()}` };
-        }),
-        loadingPriceHistory: false
-      })
-    })
-  }
-  
   async loadExchanges() {
     const { coinInfo, exchanges, error, errorType, message } = await getCryptoInfoAndExchanges(this.state.activeCoin.name, 'USD', this.state.exchangesLimit);
     if (!error) { 
@@ -108,7 +93,7 @@ export class Prices extends Component {
         loadingPriceHistory: true,
         exchanges,
         hasMoreExchanges: this.state.exchangesLimit === exchanges.length
-      }, this.loadPriceHistory);
+      });
     } else {
       switch (errorType) {
         case 'INFO_NOT_FOUND':
@@ -157,7 +142,7 @@ export class Prices extends Component {
   }
 
   loadMore() {
-    return !this.state.loading && ( <LoadMore onClick={this.onLoadMore} /> );
+    return this.state.cryptos.length && <LoadMore loading={this.state.loading} onClick={this.onLoadMore} />;
   }
 
   onLoadMoreExchanges() {
@@ -177,13 +162,11 @@ export class Prices extends Component {
           hasMoreExchanges={this.state.hasMoreExchanges}
           errorMessage={this.state.errorMessage}
           onOpenExchange={console.log}
-          priceHistory={this.state.priceHistory}
-          loadingPriceHistory={this.state.loadingPriceHistory}
           />
         <ListWrapper>
           <List
             loadMore={this.loadMore()}
-            loading={this.state.loading}
+            loading={this.state.loading && !this.state.cryptos.length}
             size="small"
             itemLayout="horizontal"
             dataSource={this.state.cryptos}

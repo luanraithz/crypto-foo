@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   CRYPTOCOMPARE_WEBSITE,
   TOP_EXCHANGES,
@@ -7,19 +6,18 @@ import {
 import {
   getSymbol
 } from '../../utils/Symbol';
+import { get } from '../get';
 
 const cryptoInfoAndExchanges = async (req, res) => {
   const {
     crypto = "BTC", symbol = 'USD', limit = 10
   } = req.query;
   const {
-    data: {
-      Data: {
-        Exchanges,
-        CoinInfo
-      }
+    Data: {
+      Exchanges,
+      CoinInfo
     }
-  } = await axios.get(`${MIN_API_URL}${TOP_EXCHANGES}/full?fsym=${crypto}&tsym=${symbol}&limit=${limit}&api_key=${process.env.MIN_API_TOKEN}`);
+  } = await get(`${TOP_EXCHANGES}/full?fsym=${crypto}&tsym=${symbol}&limit=${limit}`);
 
   if (!CoinInfo) {
     res.send({
@@ -44,7 +42,7 @@ const cryptoInfoAndExchanges = async (req, res) => {
     res.send({
       exchanges: (Exchanges || []).map(market => ({
         name: market.MARKET,
-        price: getSymbol(market.TOSYMBOL) + ` ` + market.PRICE,
+        price: `${getSymbol(market.TOSYMBOL)} ${Number(market.PRICE).toFixed(2)}`,
         lastUpdate: new Date(market.LASTUPDATE),
         highLast24Hours: market.HIGH24HOUR
       })),

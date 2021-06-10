@@ -20,8 +20,8 @@ export class Header extends PureComponent {
   items = [
     { route: "", label: "Home", icon: 'home'},
     { route: "/prices", label: "Prices", icon: 'dollar'},
+    { route: "/wallets", label: "Wallets", icon: 'wallet'},
     { route: "/about", label: "About", icon: 'info-circle'},
-    { route: "/wallets", label: "Wallets", icon: 'wallet'}
   ];
 
   render() {

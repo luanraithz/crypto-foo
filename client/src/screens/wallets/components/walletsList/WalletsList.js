@@ -41,7 +41,7 @@ export class WalletsList extends PureComponent {
                     <PropertyLabel>Security:  </PropertyLabel>{ wallet.security }
                   </Property>
                   <Property>
-                    <PropertyLabel>Coins:  </PropertyLabel>{ wallet.coins.join(', ') }
+                    <PropertyLabel>Currencies:  </PropertyLabel>{ wallet.coins.join(', ') }
                   </Property>
                 </Properties>
                 </List.Item>
